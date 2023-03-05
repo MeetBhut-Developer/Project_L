@@ -1,7 +1,7 @@
 import requests
 import os
 import pandas as pd
-
+import mysql.connector
 
 
 def image_downloads(folder_path:str,url:str, counter):
@@ -20,5 +20,16 @@ def image_downloads(folder_path:str,url:str, counter):
         print(f"ERROR - Could not save {url} - {e}")
 
 if __name__=='__main__':
-    #https://cdn.ineuron.ai/assets/uploads/thumbnails/63fdad6d87f6119423b4875b.jpg
-    persist_image('', 'https://cdn.ineuron.ai/assets/uploads/thumbnails/63fdad6d87f6119423b4875b.jpg', 1)
+    
+    conn = mysql.connector.connect(user='root', password='MyLocal@pass@8155',database='ineuron_data',host='localhost')
+    mycursor = conn.cursor(buffered=True)
+
+    mycursor.execute('select img_link from course_details;')
+    img_links = mycursor.fetchall()
+    df = pd.DataFrame(img_links).to_dict('list')
+    conn.close()
+    for i in range(len(df[0])):
+        row_url = df[0][i]
+        #https://cdn.ineuron.ai/assets/uploads/thumbnails/63fdad6d87f6119423b4875b.jpg
+        image_downloads('/home/master/Desktop/Project_L/images', f'https://cdn.ineuron.ai/assets/uploads/thumbnails/{row_url}', i+1)
+        
