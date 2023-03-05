@@ -31,5 +31,5 @@ if __name__=='__main__':
     for i in range(len(df[0])):
         row_url = df[0][i]
         #https://cdn.ineuron.ai/assets/uploads/thumbnails/63fdad6d87f6119423b4875b.jpg
-        image_downloads('/home/master/Desktop/Project_L/images', f'https://cdn.ineuron.ai/assets/uploads/thumbnails/{row_url}', i+1)
+        image_downloads('/home/lol/Desktop/data_test/images', f'https://cdn.ineuron.ai/assets/uploads/thumbnails/{row_url}', i+1)
         
